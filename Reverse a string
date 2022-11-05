@@ -1,0 +1,5 @@
+# Write a Python program to reverse a string
+
+sample_string = "LetsUpgrade"
+reverse_string = sample_string[::-1]
+print(reverse_string)
