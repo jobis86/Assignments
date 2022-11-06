@@ -1,0 +1,67 @@
+# Description: This is a simple word guessing game
+
+# Import the library
+import random
+
+# Create a list of words to choose from for the guesses
+
+words = ["python", "world", "lamp", "television", "laptop",
+"water", "book", "stool", "youtube", "science", "football"]
+
+# Randomly choose one of the listed words
+word = random.choice(words)
+# Optional: See the random word generated
+# print("our random word is ", word)
+
+# Create underscores to represent character spaces
+spaces = ["_"]*len(word)
+
+# Optional - Show length of the word
+# print(spaces)
+
+# Create a function
+# 1. Find all the letter positions from the users guess
+# 2. If letter exists in the word, then replace the underscores with correct letter(s)
+
+def position(guess, word, spaces):
+    #create and set index to be -2
+    index = -2 # or any number smaller than -2
+    while index != -1:
+        # check if guess is in word, if it is then remove the character from the word and add it to spaces
+        if guess in word:
+            index = word.find(guess)
+            # Remove that letter from the word
+            removed_character = "*"
+            word = word[:index]+removed_character+word[index+1:]
+            spaces[index] = guess
+        else:
+            index = -1
+    return (word, spaces)
+
+# Create a function to check if user guess all the letters in the word (1=yes , -1=no)
+
+def win_check():
+    for i in range(0, len(spaces)):
+        if spaces[i] == "_":
+            return -1
+    return 1
+
+# Choose number of turns to guess the word
+
+num_turns = len(word)
+for i in range(0, num_turns):
+    # Ask the user for a guess
+    guess = input("Guess a letter:")
+    if guess in word:
+        word, spaces = position(guess, word, spaces)
+        print(spaces) # allows me to show the letter to the user
+    else:
+        print("Sorry, that letter is not in the word.")
+
+    # Check if player guessed the word
+    if win_check() == 1:
+        print("Congratulations! You Won!!")
+        break
+
+    print("You have "+str(num_turns - i)+" turns left.")
+    print()
