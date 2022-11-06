@@ -1,0 +1,65 @@
+import random
+
+fruits = ["apple", "apricot", "banana", "berry", "cherry",
+"cucumber", "grape", "guava", "kiwi", "lime", "litchi", "mango",
+"melon", "mulberry", "olive", "orange", "papaya", "pear",
+"tomato"]
+
+animals = ["ants", "bat", "bear", "catfish", "cobra", "crow",
+"vulture", "tiger", "squirrel", "dogs", "sheep", "rhinos",
+"raccoon", "peacock", "lion", "ostrich", "monkey", "flamingo",
+"whale", "rabbitt", "frog", "mouse", "goose", "penguin", "wolf",
+"eagle", "zebra", "cheetah", "lizard", "panda", "giraffe"]
+
+accessories = ["ring", "bangle", "lipstick", "handbag", "crown",
+"necklace", "watch", "caps", "glasses", "wallet", "belts", "comb",
+"pendent", "earring", "scarf", "backpack", "keychain", "hairpin",
+"shoes", "hats", "jacket", "boots", "socks", "stocking", "muffler",
+"gloves", "umbrella", "ribbon"]
+
+stationary = ["notebook", "tape", "pencil", "eraser", "sharpener",
+"files", "fevicol", "inkpot", "chalk", "duster", "glue", "paper",
+"cutter", "chart", "colours", "stapler", "marker", "staples",
+"clips", "calculator", "envelope", "register"]
+
+words = fruits + animals + accessories + stationary
+
+word = random.choice(words)
+
+print(word)
+
+user_guesses = ""
+chances = 10
+attempts = 0
+
+while chances > 0:
+    wrong_guesses = 0
+    for character in word:
+        if character in user_guesses:
+            print(f"{character}")
+        else:
+            wrong_guesses += 1
+            print("_")
+    if wrong_guesses == 0:
+        print("Correct.")
+        print(f"Word: {word}")
+        break
+    guess = input("Make a guess: ")
+    user_guesses += guess
+
+    if guess not in word:
+        chances -= 1
+        print(f"Wrong. You have {chances} more chances")
+
+        if chances == 0:
+            print("game over")
+
+#Search through the letters in answer
+for i in range(len(words)):
+    if words[i] == guess:
+        word = word[0:i] + guess + word[i+1:]
+
+#Print the string with guessed letters (with spaces in between))
+        print()
+
+print("Well done, you guessed right!")
